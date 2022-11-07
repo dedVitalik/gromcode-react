@@ -8,3 +8,5 @@ const greetingElem = React.createElement(
   {className: 'greeting'},
   'Hello, React!'
 )
+
+ReactDOM.render(greetingElem, rootElement);
