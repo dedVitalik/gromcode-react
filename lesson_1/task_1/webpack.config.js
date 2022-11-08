@@ -1,10 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
-    const isProduction = argv.mode === 'production';
     
     const config = {
-        entry: './src/index.js',
+        entry: './index.js',
         output: {
             filename: 'bundle.js',
         },
@@ -15,44 +14,17 @@ module.exports = (env, argv) => {
                     use: ['babel-loader'],
                 },
                 {
-                    test: /.s?css$/,
+                    test: /.css$/,
                     use: [
                         'style-loader',
-                        'css-loader',
-                        'sass-loader'
+                        'css-loader'
                     ],
                 },
-                {
-                    test: /.jpg$/,
-                    use: [
-                        {
-                            loader: 'url-loader',
-                            options: {
-                                limit: 8192,
-                                name: '[name].[ext]',
-                                outputPath: 'images',
-                            }
-                        }
-                    ]
-                },
-                {
-                    test: /.png$/,
-                    use: [
-                        {
-                            loader: 'url-loader',
-                            options: {
-                                limit: 8192,
-                                name: '[name].[ext]',
-                                outputPath: 'images',
-                            }
-                        }
-                    ]
-                }
             ]
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: './src/index.html',
+                template: './index.html',
             }),
         ],
         devServer: {
@@ -60,14 +32,5 @@ module.exports = (env, argv) => {
             hot: true,
         }
     }
-    
-    if(isProduction) {
-        config.plugins.push(
-            new MiniCssExtractPlugin({
-                filename: '[name].css',
-            })
-        )
-    }
-    
     return config;
 }
