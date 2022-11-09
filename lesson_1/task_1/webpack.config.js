@@ -1,36 +1,25 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
-module.exports = (env, argv) => {
-    
-    const config = {
-        entry: './index.js',
-        output: {
-            filename: 'bundle.js',
-        },
-        module: {
-            rules: [
-                {
-                    test: /.js$/,
-                    use: ['babel-loader'],
-                },
-                {
-                    test: /.css$/,
-                    use: [
-                        'style-loader',
-                        'css-loader'
-                    ],
-                },
-            ]
-        },
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: './index.html',
-            }),
+module.exports = {
+    output: {
+        path: path.resolve(__dirname, 'review_build'),
+    },
+    module: {
+        rules: [
+            {
+                test: /.js$/,
+                use: 'babel-loader',
+            },
+            {
+                test: /.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
         ],
-        devServer: {
-            port: 9000,
-            hot: true,
-        }
-    }
-    return config;
-}
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+        }),
+    ],
+};
